@@ -1,5 +1,8 @@
 # gatsby-remark-embedded-codesandbox
 
+[![NPM badge](https://img.shields.io/npm/v/gatsby-remark-embedded-codesandbox.svg?style=flat-square)](https://www.npmjs.com/package/gatsby-remark-embedded-codesandbox)
+[![Travis badge](https://img.shields.io/travis/elboman/gatsby-remark-embedded-codesandbox.svg?branch=master&style=flat-square)](https://travis-ci.org/elboman/gatsby-remark-embedded-codesandbox)
+
 This plugin adds support for generting embedded [Codesandbox](https://codesandbox.io/), specifying a folder in local files to populate the contents of it.
 This enables example code to be stored along side of, and revisioned with, your website content.
 
