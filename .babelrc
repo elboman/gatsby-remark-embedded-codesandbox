@@ -1,0 +1,18 @@
+{
+  "env": {
+    "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": ["last 4 versions", "safari >= 7", "ie >= 9"],
+              "uglify": true
+            }
+          }
+        ],
+        "react"
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "gatsby-remark-embedded-codesandbox",
+  "version": "1.0.0",
+  "description": "Gatsby Remark plugin for embedding Codesandbox given a folder of files",
+  "main": "index.js",
+  "repository": "https://github.com/elboman/gatsby-remark-embedded-codesandbox",
+  "author": "Marco Botto <marco.botto@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/elboman/gatsby-remark-embedded-codesandbox/issues"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "remark",
+    "codesandbox",
+    "embed",
+    "embedded"
+  ],
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "jest": "^22.4.3",
+    "lz-string": "^1.4.4",
+    "query-string": "^6.0.0",
+    "unist-util-map": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.1.4",
+    "prettier": "^1.12.1",
+    "remark": "^9.0.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "babel src --out-dir . --ignore __tests__",
+    "prepublish": "cross-env NODE_ENV=production yarn build"
+  }
+}
