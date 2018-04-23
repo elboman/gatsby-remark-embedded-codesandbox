@@ -35,6 +35,6 @@
   "scripts": {
     "test": "jest",
     "build": "babel src --out-dir . --ignore __tests__",
-    "prepublish": "cross-env NODE_ENV=production yarn build"
+    "prepublish": "cross-env yarn test && NODE_ENV=production yarn build"
   }
 }
