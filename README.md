@@ -57,6 +57,16 @@ to embedded editors. For example:
 > }
 > ```
 
+### Overriding options on single sandboxes
+
+It's possible to override the global [embedding options](https://codesandbox.io/docs/embedding#embed-options) on a per-sandbox basis, by simply passing them as url query in the generating link.
+
+```md
+[hello world example](embedded-codesandbox://hello-world-example?view=split)
+```
+
+The options will be merged with the global one.
+
 ### How does it work?
 
 CodeSandbox uses the [same URL compression schema used by the Babel REPL](https://github.com/babel/website/blob/c9dd1f516985f7267eb58c286789e0c66bc0a21d/js/repl/UriUtils.js#L22-L26) to embed the local code example in a URL.
