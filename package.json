@@ -1,6 +1,6 @@
 {
   "name": "gatsby-remark-embedded-codesandbox",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Gatsby Remark plugin for embedding Codesandbox given a folder of files",
   "main": "index.js",
   "repository": "https://github.com/elboman/gatsby-remark-embedded-codesandbox",
