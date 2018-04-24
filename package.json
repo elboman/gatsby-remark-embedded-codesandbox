@@ -37,8 +37,8 @@
   "scripts": {
     "test": "jest",
     "test-ci": "jest --verbose",
-    "prepublish": "cross-env yarn test && NODE_ENV=production yarn build",
     "build": "BABEL_ENV=production babel src --out-dir . --ignore __tests__",
+    "prepublishOnly": "cross-env yarn test && NODE_ENV=production yarn build",
     "release": "standard-version"
   }
 }
