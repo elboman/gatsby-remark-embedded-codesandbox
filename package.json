@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.1.4",
@@ -36,8 +37,8 @@
   "scripts": {
     "test": "jest",
     "test-ci": "jest --verbose",
-    "build": "babel src --out-dir . --ignore __tests__",
     "prepublish": "cross-env yarn test && NODE_ENV=production yarn build",
+    "build": "BABEL_ENV=production babel src --out-dir . --ignore __tests__",
     "release": "standard-version"
   }
 }
