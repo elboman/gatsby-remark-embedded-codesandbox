@@ -80,4 +80,24 @@ describe('gatsby-remark-embedded-codesandbox', () => {
     );
     expect(getNodeContent(transformed)).toMatchSnapshot();
   });
+
+  it('generates an embedded sandbox using the overridable url-query options', () => {
+    const markdownAST = remark.parse(
+      `[](embedded-codesandbox://example?view=split&hidenavigation=0)`
+    );
+    const transformed = plugin({ markdownAST }, { directory: 'examples' });
+    expect(getNodeContent(transformed).value).toEqual(
+      expect.stringContaining('query=hidenavigation%3D0%26view%3Dsplit')
+    );
+  });
+
+  it('overrides url-query options correctly', () => {
+    const markdownAST = remark.parse(
+      `[](embedded-codesandbox://example?hidenavigation=0&foo=bar)`
+    );
+    const transformed = plugin({ markdownAST }, { directory: 'examples' });
+    expect(getNodeContent(transformed).value).toEqual(
+      expect.stringContaining('foo%3Dbar%26hidenavigation%3D0%26view%3Dpreview')
+    );
+  });
 });

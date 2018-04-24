@@ -73,14 +73,24 @@ module.exports = (
     return compress(JSON.stringify(params));
   };
 
-  const convertNodeToEmbedded = (node, params) => {
+  const getUrlParts = url => {
+    const splitUrl = url.split('?');
+    return {
+      base: splitUrl[0],
+      query: queryString.parse(splitUrl[1]),
+    };
+  };
+
+  const convertNodeToEmbedded = (node, params, options = {}) => {
     delete node.children;
     delete node.position;
     delete node.title;
     delete node.url;
 
+    // merge the overriding options with the plugin one
+    const mergedOptions = { ...embedOptions, ...options };
     const encodedEmbedOptions = encodeURIComponent(
-      queryString.stringify(embedOptions)
+      queryString.stringify(mergedOptions)
     );
     const sandboxUrl = `https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=${params}&query=${encodedEmbedOptions}`;
     const embedded = getIframe(sandboxUrl);
@@ -91,10 +101,15 @@ module.exports = (
 
   map(markdownAST, (node, index, parent) => {
     if (node.type === 'link' && node.url.startsWith(protocol)) {
-      const dir = getDirectoryPath(node.url);
+      // split the url in base and query to allow user
+      // to customise embedding options on a per-node basis
+      const url = getUrlParts(node.url);
+      // get all files in the folder and generate
+      // the embeddeing parameters
+      const dir = getDirectoryPath(url.base);
       const files = getFilesList(dir);
       const params = createParams(files);
-      convertNodeToEmbedded(node, params);
+      convertNodeToEmbedded(node, params, url.query);
     }
 
     return node;
