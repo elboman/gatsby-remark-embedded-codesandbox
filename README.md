@@ -46,6 +46,8 @@ to embedded editors. For example:
 <iframe src="https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;\\" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 ```
 
+Note: If you are using [gatsby-remark-responsive-iframe](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-responsive-iframe), it must appear *after* this plugin in your configuration or the iframe will not be transformed.
+
 > NB: Codesandbox [**requires** a `package.json` file](https://codesandbox.io/docs/importing#how-it-works) in order to work!
 > You can define dependencies such as `react` that will be included in the sandbox.
 > If you don't need any just add the minimum required:
