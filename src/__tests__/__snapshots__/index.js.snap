@@ -27,3 +27,5 @@ Object {
   "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
 }
 `;
+
+exports[`gatsby-remark-embedded-codesandbox uses a fallback value as package.json if nothing is found in folders 1`] = `"{\\"files\\":{\\"index.html\\":{\\"content\\":\\"<html><body></body></html>\\"},\\"index.js\\":{\\"content\\":\\"const foo = \\\\\\"bar\\\\\\";\\"},\\"package.json\\":{\\"content\\":{\\"name\\":\\"example\\"}}}}"`;

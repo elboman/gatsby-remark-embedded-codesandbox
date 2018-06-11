@@ -9,10 +9,19 @@ jest.mock(`fs`, () => {
 const fs = require(`fs`);
 const Remark = require(`remark`);
 const plugin = require(`../index`);
+const queryString = require('query-string');
+const LZString = require('lz-string');
 
 const remark = new Remark();
 
 const getNodeContent = node => node.children[0].children[0];
+
+const decompress = string =>
+  LZString.decompressFromBase64(
+    string
+      .replace(/-/g, '+') // Convert '-' to '+'
+      .replace(/_/g, '/') // Convert '_' to '/'
+  );
 
 describe('gatsby-remark-embedded-codesandbox', () => {
   beforeEach(() => {
@@ -21,11 +30,11 @@ describe('gatsby-remark-embedded-codesandbox', () => {
     fs.readFileSync.mockReset();
 
     fs.existsSync.mockReturnValue(true);
-    fs.readdirSync.mockReturnValue(['package.json', 'index.html', 'index.js']);
+    fs.readdirSync.mockReturnValue(['index.html', 'index.js', 'package.json']);
     fs.readFileSync
-      .mockReturnValueOnce('{ "name": "example" }')
       .mockReturnValueOnce('<html><body></body></html>')
-      .mockReturnValueOnce('const foo = "bar";');
+      .mockReturnValueOnce('const foo = "bar";')
+      .mockReturnValueOnce('{ "name": "example" }');
   });
 
   it(`generates an embedded sandbox for the specified example folder`, async () => {
@@ -99,5 +108,50 @@ describe('gatsby-remark-embedded-codesandbox', () => {
     expect(getNodeContent(transformed).value).toEqual(
       expect.stringContaining('foo%3Dbar%26hidenavigation%3D0%26view%3Dpreview')
     );
+  });
+
+  it('looks for package.json files in parent folder is none is found', () => {
+    // first time is called to list files
+    fs.readdirSync.mockReturnValueOnce(['index.html', 'index.js']);
+    // from second call it's looking for package.json
+    fs.readdirSync.mockReturnValueOnce(['index.html', 'index.js']);
+    fs.readdirSync.mockReturnValueOnce([]);
+    fs.readdirSync.mockReturnValueOnce(['package.json']);
+    fs.readFileSync
+      .mockReturnValueOnce('<html><body></body></html>')
+      .mockReturnValueOnce('const foo = "bar";')
+      .mockReturnValueOnce('{ "name": "example" }');
+    const markdownAST = remark.parse(
+      `[](embedded-codesandbox://coolstuff/first?hidenavigation=0&foo=bar)`
+    );
+    const transformed = plugin({ markdownAST }, { directory: 'examples' });
+    expect(fs.readdirSync).toHaveBeenNthCalledWith(
+      2,
+      'examples/coolstuff/first'
+    );
+    expect(fs.readdirSync).toHaveBeenNthCalledWith(3, 'examples/coolstuff');
+    expect(fs.readdirSync).toHaveBeenNthCalledWith(4, 'examples');
+  });
+
+  it('uses a fallback value as package.json if nothing is found in folders', () => {
+    // first time is called to list files
+    fs.readdirSync.mockReturnValueOnce(['index.html', 'index.js']);
+    // from second call it's looking for package.json
+    fs.readdirSync.mockReturnValueOnce(['index.html', 'index.js']);
+    fs.readdirSync.mockReturnValueOnce([]);
+    fs.readdirSync.mockReturnValueOnce([]);
+    fs.readFileSync
+      .mockReturnValueOnce('<html><body></body></html>')
+      .mockReturnValueOnce('const foo = "bar";');
+    const markdownAST = remark.parse(
+      `[](embedded-codesandbox://coolstuff/first?hidenavigation=0&foo=bar)`
+    );
+    const transformed = plugin(
+      { markdownAST },
+      { directory: 'examples', getIframe: url => url }
+    );
+    const value = getNodeContent(transformed).value;
+    const query = queryString.parse(value.split('?')[1]);
+    expect(decompress(query.parameters)).toMatchSnapshot();
   });
 });
