@@ -24,36 +24,76 @@ const compress = string =>
 module.exports = (
   { markdownAST },
   {
-    directory,
+    directory: rootDirectory,
     protocol = DEFAULT_PROTOCOL,
     embedOptions = DEFAULT_EMBED_OPTIONS,
     getIframe = DEFAULT_GET_IFRAME,
   }
 ) => {
-  if (!directory) {
+  if (!rootDirectory) {
     throw Error('Required option "directory" not specified');
-  } else if (!fs.existsSync(directory)) {
-    throw Error(`Cannot find directory "${directory}"`);
-  } else if (!directory.endsWith('/')) {
-    directory += '/';
+  } else if (!fs.existsSync(rootDirectory)) {
+    throw Error(`Cannot find directory "${rootDirectory}"`);
+  } else if (!rootDirectory.endsWith('/')) {
+    rootDirectory += '/';
   }
 
   const getDirectoryPath = url => {
     let directoryPath = url.replace(protocol, '');
-    const fullPath = path.join(directory, directoryPath);
+    const fullPath = path.join(rootDirectory, directoryPath);
     return normalizePath(fullPath);
   };
 
   const getFilesList = directory => {
-    const files = fs.readdirSync(directory);
-    return files.map(file => {
-      const fullFilePath = path.resolve(directory, file);
-      const content = fs.readFileSync(fullFilePath, 'utf-8');
-      return {
-        name: file,
-        content,
-      };
-    });
+    let packageJsonFound = false;
+    const folderFiles = fs.readdirSync(directory);
+    const sandboxFiles = folderFiles
+      // we ignore the package.json file as it will
+      // be handled separately
+      .filter(file => file !== 'package.json')
+      .map(file => {
+        const fullFilePath = path.resolve(directory, file);
+        const content = fs.readFileSync(fullFilePath, 'utf-8');
+        return {
+          name: file,
+          content,
+        };
+      });
+
+    let workingDir = directory;
+    while (!packageJsonFound) {
+      // first read all files in the folder and look
+      // for a package.json there
+      const files = fs.readdirSync(workingDir);
+      const packageJson = getPackageJsonFile(files);
+      if (packageJson) {
+        const fullFilePath = path.resolve(workingDir, 'package.json');
+        const content = fs.readFileSync(fullFilePath, 'utf-8');
+        sandboxFiles.push({
+          name: 'package.json',
+          content,
+        });
+        packageJsonFound = true;
+        // if root folder is reached, use a fallback default
+        // value as content, to ensure the sandbox is always working
+      } else if (path.resolve(workingDir) === path.resolve(rootDirectory)) {
+        sandboxFiles.push({
+          name: 'package.json',
+          content: '{ "name": "example" }',
+        });
+        packageJsonFound = true;
+        // if not present, work up the folders
+      } else {
+        workingDir = path.join(workingDir, '..');
+      }
+    }
+
+    return sandboxFiles;
+  };
+
+  const getPackageJsonFile = fileList => {
+    const found = fileList.filter(name => name === 'package.json');
+    return found.length > null;
   };
 
   const createParams = files => {
