@@ -46,18 +46,24 @@ to embedded editors. For example:
 <iframe src="https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;\\" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 ```
 
-Note: If you are using [gatsby-remark-responsive-iframe](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-responsive-iframe), it must appear *after* this plugin in your configuration or the iframe will not be transformed.
+> Note: If you are using [gatsby-remark-responsive-iframe](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-responsive-iframe), it must appear _after_ this plugin in your configuration or the iframe will not be transformed.
 
-> NB: Codesandbox [**requires** a `package.json` file](https://codesandbox.io/docs/importing#how-it-works) in order to work!
-> You can define dependencies such as `react` that will be included in the sandbox.
-> If you don't need any just add the minimum required:
->
-> ```json
-> {
->   "name": "example",
->   "dependencies": {}
-> }
-> ```
+### Package.json file
+
+Codesandbox [**requires** a `package.json` file](https://codesandbox.io/docs/importing#how-it-works) in order to work.
+This is useful because you can define dependencies such as `react` that will be included in the sandbox.
+
+The plugin will search for the `package.json` file in the example folder.
+If not found, it will try in the parent folders up until it reaches the _examples root folder_.
+
+If nothing is found it fall back to a default one:
+
+```json
+{
+  "name": "example",
+  "dependencies": {}
+}
+```
 
 ### Overriding options on single sandboxes
 
