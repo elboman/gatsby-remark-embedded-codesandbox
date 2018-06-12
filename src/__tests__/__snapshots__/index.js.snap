@@ -3,28 +3,28 @@
 exports[`gatsby-remark-embedded-codesandbox generates an embedded sandbox for a nested example folder 1`] = `
 Object {
   "type": "html",
-  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
+  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgBYAuAtlEqAMYD2qBMNSIAPISQHyMBGl6AnuwPRdeAllFYgAvgBoQaTLgBWCZCCo06BBmrgEABGEqVdAXl0AdEBwCGAJwsBuSTIAOV8gGsrAcxg4l1MlVqWnoVVCsiGAZsCOdYSQlEoA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
 }
 `;
 
 exports[`gatsby-remark-embedded-codesandbox generates an embedded sandbox for the specified example folder 1`] = `
 Object {
   "type": "html",
-  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
+  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgBYAuAtlEqAMYD2qBMNSIAPISQHyMBGl6AnuwPRdeAllFYgAvgBoQaTLgBWCZCCo06BBmrgEABGEqVdAXl0AdEBwCGAJwsBuSTIAOV8gGsrAcxg4l1MlVqWnoVVCsiGAZsCOdYSQlEoA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
 }
 `;
 
 exports[`gatsby-remark-embedded-codesandbox generates an embedded sandbox using a custom getIframe function 1`] = `
 Object {
   "type": "html",
-  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview\\" />",
+  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgBYAuAtlEqAMYD2qBMNSIAPISQHyMBGl6AnuwPRdeAllFYgAvgBoQaTLgBWCZCCo06BBmrgEABGEqVdAXl0AdEBwCGAJwsBuSTIAOV8gGsrAcxg4l1MlVqWnoVVCsiGAZsCOdYSQlEoA&query=hidenavigation%3D1%26view%3Dpreview\\" />",
 }
 `;
 
 exports[`gatsby-remark-embedded-codesandbox generates an embedded sandbox using a custom protocol 1`] = `
 Object {
   "type": "html",
-  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKADgQwMYGs0HMYB0AVnAPYB2SoGFALjObVSOWgLYxIgwAe7KsEAF8hAGhARyAE14EAFrTZRmNRgyaIQAHgVKAfFoBGpKQE8DAemNnLuqHuHjJMnsQTIQq-oy6q4tAAIwUlIAgF4AgB0QQzQAJ2iAbmERIA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
+  "value": "<iframe src=\\"https://codesandbox.io/api/v1/sandboxes/define?embed=1&parameters=N4IgZglgNgpgziAXKCA7AJjAHgOgBYAuAtlEqAMYD2qBMNSIAPISQHyMBGl6AnuwPRdeAllFYgAvgBoQaTLgBWCZCCo06BBmrgEABGEqVdAXl0AdEBwCGAJwsBuSTIAOV8gGsrAcxg4l1MlVqWnoVVCsiGAZsCOdYSQlEoA&query=hidenavigation%3D1%26view%3Dpreview\\" class=\\"embedded-codesandbox\\" sandbox=\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\"></iframe>",
 }
 `;
 
