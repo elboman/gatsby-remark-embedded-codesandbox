@@ -94,7 +94,7 @@ This is than passed to the (awesome) [define api](https://codesandbox.io/docs/im
   options: {
     plugins: [
       {
-        resolve: 'gastby-remark-embedded-codesandbox',
+        resolve: 'gatsby-remark-embedded-codesandbox',
         options: {
           // Required:
 
