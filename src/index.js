@@ -21,6 +21,18 @@ const compress = string =>
     .replace(/\//g, `_`) // Convert '/' to '_'
     .replace(/=+$/, ``); // Remove ending '='
 
+const getFiles = (baseDir, dir, files) => {
+  fs.readdirSync(dir).forEach(function(file) {
+    var subDir = path.join(dir, file);
+    if (fs.lstatSync(subDir).isDirectory()) {
+      getFiles(baseDir, subDir, files);
+    } else {
+      let filePath = path.join(dir, file);
+      files.push(filePath.replace(`${baseDir}/`, ''));
+    }
+  });
+};
+
 module.exports = (
   { markdownAST },
   {
@@ -46,18 +58,21 @@ module.exports = (
 
   const getFilesList = directory => {
     let packageJsonFound = false;
-    const folderFiles = fs.readdirSync(directory);
-    const sandboxFiles = folderFiles
+    const folderFiles = [];
+    const sandboxFiles = [];
+    getFiles(directory, directory, folderFiles);
+
+    folderFiles
       // we ignore the package.json file as it will
       // be handled separately
       .filter(file => file !== 'package.json')
       .map(file => {
         const fullFilePath = path.resolve(directory, file);
         const content = fs.readFileSync(fullFilePath, 'utf-8');
-        return {
+        sandboxFiles.push({
           name: file,
           content,
-        };
+        });
       });
 
     let workingDir = directory;

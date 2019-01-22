@@ -3,6 +3,7 @@ jest.mock(`fs`, () => {
     existsSync: jest.fn(),
     readdirSync: jest.fn(),
     readFileSync: jest.fn(),
+    lstatSync: jest.fn(),
   };
 });
 
@@ -28,6 +29,7 @@ describe('gatsby-remark-embedded-codesandbox', () => {
     fs.existsSync.mockReset();
     fs.readdirSync.mockReset();
     fs.readFileSync.mockReset();
+    fs.lstatSync.mockReset();
 
     fs.existsSync.mockReturnValue(true);
     fs.readdirSync.mockReturnValue(['index.html', 'index.js', 'package.json']);
@@ -35,6 +37,11 @@ describe('gatsby-remark-embedded-codesandbox', () => {
       .mockReturnValueOnce('<html><body></body></html>')
       .mockReturnValueOnce('const foo = "bar";')
       .mockReturnValueOnce('{ "name": "example" }');
+    fs.lstatSync.mockReturnValue({
+      isDirectory: function() {
+        return false;
+      },
+    });
   });
 
   it(`generates an embedded sandbox for the specified example folder`, async () => {
