@@ -3,14 +3,14 @@
 [![NPM badge](https://img.shields.io/npm/v/gatsby-remark-embedded-codesandbox.svg?style=flat-square)](https://www.npmjs.com/package/gatsby-remark-embedded-codesandbox)
 [![Travis badge](https://img.shields.io/travis/elboman/gatsby-remark-embedded-codesandbox.svg?branch=master&style=flat-square)](https://travis-ci.org/elboman/gatsby-remark-embedded-codesandbox)
 
-This plugin adds support for generting embedded [Codesandbox](https://codesandbox.io/), specifying a folder in local files to populate the contents of it.
+This plugin adds support for generating embedded [CodeSandbox](https://codesandbox.io/), specifying a folder in local files to populate the contents of it.
 This enables example code to be stored along side of, and revisioned with, your website content.
 
 This plugin is based on [gatsby-remark-code-repls](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-remark-code-repls).
 
 ## Getting started
 
-To embed a Codesandbox editor in you markdown/remark content, simply add a link with the custom protocol pointing to the folder desired folder:
+To embed a CodeSandbox editor in you Markdown/remark content, simply add a link with the custom protocol pointing to the folder desired folder:
 
 ```md
 [embedded example](embedded-codesandbox://example/folder)
@@ -33,7 +33,7 @@ examples/
 │   └── index.js
 ```
 
-These example files can be referenced via links in markdown that get transformed
+These example files can be referenced via links in Markdown that get transformed
 to embedded editors. For example:
 
 ```md
@@ -50,7 +50,7 @@ to embedded editors. For example:
 
 ### Package.json file
 
-Codesandbox [**requires** a `package.json` file](https://codesandbox.io/docs/importing#how-it-works) in order to work.
+CodeSandbox [**requires** a `package.json` file](https://codesandbox.io/docs/importing#how-it-works) in order to work.
 This is useful because you can define dependencies such as `react` that will be included in the sandbox.
 
 The plugin will search for the `package.json` file in the example folder.
@@ -108,7 +108,7 @@ This is than passed to the (awesome) [define api](https://codesandbox.io/docs/im
           // default:
           protocol: 'embedded-codesandbox://',
 
-          // Customise Codesandbox embedding options:
+          // Customise CodeSandbox embedding options:
           // https://codesandbox.io/docs/embedding#embed-options
           // default:
           embedOptions: {
