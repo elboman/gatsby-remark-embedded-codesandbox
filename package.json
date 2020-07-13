@@ -32,7 +32,7 @@
     "cross-env": "^5.1.4",
     "prettier": "^1.12.1",
     "remark": "^9.0.0",
-    "standard-version": "^4.3.0"
+    "standard-version": "^8.0.1"
   },
   "scripts": {
     "test": "jest",
