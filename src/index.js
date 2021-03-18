@@ -21,6 +21,16 @@ const compress = string =>
     .replace(/\//g, `_`) // Convert '/' to '_'
     .replace(/=+$/, ``); // Remove ending '='
 
+const getAllFiles = dirPath =>
+  fs.readdirSync(dirPath).reduce((acc, file) => {
+    const relativePath = dirPath + '/' + file;
+    const isDirectory = fs.statSync(relativePath).isDirectory();
+    // Removes the dirPath from start of the string
+    const fileNameForSandbox = relativePath.replace(new RegExp(`^${dirPath}/`), "")
+    const additions = isDirectory ? getAllFiles(relativePath) : [fileNameForSandbox];
+    return [...acc, ...additions];
+  }, []);
+
 module.exports = (
   { markdownAST },
   {
@@ -46,16 +56,16 @@ module.exports = (
 
   const getFilesList = directory => {
     let packageJsonFound = false;
-    const folderFiles = fs.readdirSync(directory);
+    const folderFiles = getAllFiles(directory);
     const sandboxFiles = folderFiles
       // we ignore the package.json file as it will
       // be handled separately
-      .filter(file => file !== 'package.json')
-      .map(file => {
-        const fullFilePath = path.resolve(directory, file);
+      .filter(file => !file.includes('package.json'))
+      .map(relativePath => {
+        const fullFilePath = path.resolve(__dirname, directory, relativePath);
         const content = fs.readFileSync(fullFilePath, 'utf-8');
         return {
-          name: file,
+          name: relativePath,
           content,
         };
       });
@@ -92,14 +102,13 @@ module.exports = (
   };
 
   const getPackageJsonFile = fileList => {
-    const found = fileList.filter(name => name === 'package.json');
-    return found.length > null;
+    return fileList.find(file => file.includes('package.json'));
   };
 
   const createParams = files => {
     const filesObj = files.reduce((prev, current) => {
       // parse package.json first
-      if (current.name === 'package.json') {
+      if (current.name.includes('package.json')) {
         prev[current.name] = { content: JSON.parse(current.content) };
       } else {
         prev[current.name] = { content: current.content };
@@ -109,7 +118,6 @@ module.exports = (
     const params = {
       files: filesObj,
     };
-
     return compress(JSON.stringify(params));
   };
 
