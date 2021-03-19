@@ -13,6 +13,12 @@ const DEFAULT_EMBED_OPTIONS = {
 const DEFAULT_GET_IFRAME = url =>
   `<iframe src="${url}" class="embedded-codesandbox" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>`;
 
+const DEFAULT_IGNORED_FILES = [
+  'node_modules',
+  'package-lock.json',
+  'yarn.lock'
+]
+
 // Matches compression used in Babel and CodeSandbox REPLs
 // https://github.com/babel/website/blob/master/js/repl/UriUtils.js
 const compress = string =>
@@ -21,14 +27,7 @@ const compress = string =>
     .replace(/\//g, `_`) // Convert '/' to '_'
     .replace(/=+$/, ``); // Remove ending '='
 
-const getAllFiles = dirPath =>
-  fs.readdirSync(dirPath).reduce((acc, file) => {
-    if (file === 'node_modules') return acc;
-    const relativePath = dirPath + '/' + file;
-    const isDirectory = fs.statSync(relativePath).isDirectory();
-    const additions = isDirectory ? getAllFiles(relativePath) : [relativePath];
-    return [...acc, ...additions];
-  }, []);
+
 
 module.exports = (
   { markdownAST },
@@ -37,6 +36,7 @@ module.exports = (
     protocol = DEFAULT_PROTOCOL,
     embedOptions = DEFAULT_EMBED_OPTIONS,
     getIframe = DEFAULT_GET_IFRAME,
+    ignoredFiles = DEFAULT_IGNORED_FILES,
   }
 ) => {
   if (!rootDirectory) {
@@ -47,11 +47,22 @@ module.exports = (
     rootDirectory += '/';
   }
 
+  const ignoredFilesSet = new Set(ignoredFiles)
+
   const getDirectoryPath = url => {
     let directoryPath = url.replace(protocol, '');
     const fullPath = path.join(rootDirectory, directoryPath);
     return normalizePath(fullPath);
   };
+
+  const getAllFiles = (dirPath) =>
+    fs.readdirSync(dirPath).reduce((acc, file) => {
+      if (ignoredFilesSet.has(file)) return acc;
+      const relativePath = dirPath + '/' + file;
+      const isDirectory = fs.statSync(relativePath).isDirectory();
+      const additions = isDirectory ? getAllFiles(relativePath) : [relativePath];
+      return [...acc, ...additions];
+  }, []);
 
   const getFilesList = directory => {
     let packageJsonFound = false;

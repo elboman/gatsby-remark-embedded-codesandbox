@@ -1,12 +1,12 @@
 {
-  "name": "gatsby-remark-embedded-codesandbox",
-  "version": "1.2.0",
-  "description": "Gatsby Remark plugin for embedding Codesandbox given a folder of files",
+  "name": "@guy/gatsby-remark-embedded-codesandbox",
+  "version": "1.0.0",
+  "description": "Gatsby Remark plugin for embedding Codesandbox given a recursive folder of files",
   "main": "index.js",
-  "repository": "https://github.com/elboman/gatsby-remark-embedded-codesandbox",
+  "repository": "https://github.com/guyathomas/gatsby-remark-embedded-codesandbox",
   "author": "Marco Botto <marco.botto@gmail.com>",
   "bugs": {
-    "url": "https://github.com/elboman/gatsby-remark-embedded-codesandbox/issues"
+    "url": "https://github.com/guyathomas/gatsby-remark-embedded-codesandbox/issues"
   },
   "keywords": [
     "gatsby",
