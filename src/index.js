@@ -26,9 +26,7 @@ const getAllFiles = dirPath =>
     if (file === 'node_modules') return acc;
     const relativePath = dirPath + '/' + file;
     const isDirectory = fs.statSync(relativePath).isDirectory();
-    // Removes the dirPath from start of the string
-    const fileNameForSandbox = relativePath.replace(new RegExp(`^${dirPath}/`), "")
-    const additions = isDirectory ? getAllFiles(relativePath) : [fileNameForSandbox];
+    const additions = isDirectory ? getAllFiles(relativePath) : [relativePath];
     return [...acc, ...additions];
   }, []);
 
@@ -58,7 +56,9 @@ module.exports = (
   const getFilesList = directory => {
     let packageJsonFound = false;
     const folderFiles = getAllFiles(directory);
+    const basePathRE = new RegExp(`^${directory}/`);
     const sandboxFiles = folderFiles
+      .map(file => file.replace(basePathRE, ''))
       // we ignore the package.json file as it will
       // be handled separately
       .filter(file => !file.includes('package.json'))
