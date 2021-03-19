@@ -3,6 +3,9 @@ jest.mock(`fs`, () => {
     existsSync: jest.fn(),
     readdirSync: jest.fn(),
     readFileSync: jest.fn(),
+    statSync: jest.fn(() => ({
+      isDirectory: jest.fn(() => false)
+    }))
   };
 });
 

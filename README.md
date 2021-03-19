@@ -119,6 +119,15 @@ This is than passed to the (awesome) [define api](https://codesandbox.io/docs/im
           // Customise the embedding iframe given the generated url
           // default:
           getIframe: url => `<iframe src="${url}" class="embedded-codesandbox" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>`
+          
+          
+          // Customise the ignored file / folder names
+          // default:
+          ignoredFiles: [
+            'node_modules',
+            'yarn.lock',
+            'package-lock.json'
+          ]
         }
       }
     ]
