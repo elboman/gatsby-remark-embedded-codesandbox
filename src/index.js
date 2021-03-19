@@ -23,6 +23,7 @@ const compress = string =>
 
 const getAllFiles = dirPath =>
   fs.readdirSync(dirPath).reduce((acc, file) => {
+    if (file === 'node_modules') return acc;
     const relativePath = dirPath + '/' + file;
     const isDirectory = fs.statSync(relativePath).isDirectory();
     // Removes the dirPath from start of the string
